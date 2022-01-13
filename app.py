@@ -4,7 +4,6 @@ import pandas as pd
 import plotly.express as px
 from PIL import Image
 import pymongo
-import netron
 
 img=Image.open("./images/favicon.png")
 st.set_page_config(page_title="y = x + 10", page_icon=img)
@@ -143,12 +142,9 @@ with model_training:
     st.write(" ")
     st.subheader("Model Neural Network")
     st.image("./images/ymc.jpg")
-    st.write("""
-        ##### View model's neural network in detail click `Neural Network`.
-    """)
-
-    if st.button("Neural Network"):
-        netron.start("./model/ymc.h5")
+    # st.write("""
+    #     ##### View model's neural network in detail click `Neural Network`.
+    # """)
 
     st.write(" ")
 
