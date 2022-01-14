@@ -190,8 +190,6 @@ with download_model:
 
         submitted = st.form_submit_button("Submit")
 
-        if poision=="Choose a option":
-            pass
 
         if nick_name and poision and not poision=="Choose a option":
             if submitted:
@@ -203,7 +201,7 @@ with download_model:
         # collections
         collections = tea_milk_coffee["users"]
 
-        if poision!="Choose a option":
+        if poision!="Choose a option" and nick_name:
             user_info = { "name": f"{nick_name}" , "drink": f"{poision}"}
             x = collections.insert_one(user_info)
 
