@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 from PIL import Image
 import pymongo
+from datetime import datetime
 
 img=Image.open("./images/favicon.png")
 st.set_page_config(page_title="y = x + 10", page_icon=img)
@@ -190,28 +191,29 @@ with download_model:
 
         submitted = st.form_submit_button("Submit")
 
-        if nick_name and poision and not poision=="Choose a option" and nick_name==None:
+        # collections
+        collections = tea_milk_coffee["users"]
+        current_dt = datetime.now()
+        time = current_dt.strftime("%H:%M:%S")
+        date = current_dt.strftime("%Y-%m-%d")
+
+        if not nick_name.isspace() and poision!="Choose a option":
             if submitted:
-                st.write("""
+                st.write(f"""
                     <h6 align="center">Thank you!</h6>
                 <h6 align="center">Download by clicking below button.</h6>
                 """, unsafe_allow_html=True)
-
-        # collections
-        collections = tea_milk_coffee["users"]
-
-        if poision!="Choose a option" and nick_name and nick_name==None:
-            user_info = { "name": f"{nick_name}" , "drink": f"{poision}"}
+            user_info = { "name": f"{nick_name}" , "drink": f"{poision}", "date": f"{date}", "time": f"{time}"}
             x = collections.insert_one(user_info)
 
-    if nick_name and poision and not poision=="Choose a option" and nick_name==None:
+    if not nick_name.isspace() and poision!="Choose a option":
         if submitted:
             with open("./model/ymc.h5", "rb") as file:
                 btn = st.download_button(
                     label="Download Model",
                     data=file,
                     file_name="yx10.h5"
-                )
+                    )
 
 
 
