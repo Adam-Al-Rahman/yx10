@@ -186,12 +186,11 @@ with download_model:
     with st.form("tea_cappuccino_coffee", clear_on_submit=True):
         st.code("Submit the below form to download the ml model.")
         nick_name=st.text_input('Nick Name', placeholder="Johnny")
-        poision=st.selectbox('What you like', ['Tea', 'Milk', 'Coffee', 'Choose a option'], help="What you like in drinks", index=3)
+        poision=st.selectbox('What you like', ['Tea', 'Milk', 'Coffee', 'Choose a option'], help="What you like tea, milk or coffee", index=3)
 
         submitted = st.form_submit_button("Submit")
 
-
-        if nick_name and poision and not poision=="Choose a option":
+        if nick_name and poision and not poision=="Choose a option" and nick_name==None:
             if submitted:
                 st.write("""
                     <h6 align="center">Thank you!</h6>
@@ -201,11 +200,11 @@ with download_model:
         # collections
         collections = tea_milk_coffee["users"]
 
-        if poision!="Choose a option" and nick_name:
+        if poision!="Choose a option" and nick_name and nick_name==None:
             user_info = { "name": f"{nick_name}" , "drink": f"{poision}"}
             x = collections.insert_one(user_info)
 
-    if nick_name and poision and not poision=="Choose a option":
+    if nick_name and poision and not poision=="Choose a option" and nick_name==None:
         if submitted:
             with open("./model/ymc.h5", "rb") as file:
                 btn = st.download_button(
