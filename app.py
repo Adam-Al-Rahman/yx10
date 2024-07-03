@@ -3,24 +3,24 @@ import tensorflow as tf
 import pandas as pd
 import plotly.express as px
 from PIL import Image
-import pymongo
+# import pymongo
 from datetime import datetime
 
 img=Image.open("./images/favicon.png")
 st.set_page_config(page_title="y = x + 10", page_icon=img)
 
-# Initialize connection.
-client = pymongo.MongoClient(st.secrets.MONGO_CLIENT)
+# # Initialize connection.
+# client = pymongo.MongoClient(st.secrets.MONGO_CLIENT)
 
-# Database
-tea_milk_coffee = client["tea_milk_coffee"]
+# # Database
+# tea_milk_coffee = client["tea_milk_coffee"]
 
 
 sidebar = st.container()
 header = st.container()
 dataset = st.container()
 model_training = st.container()
-download_model=st.container()
+# download_model=st.container()
 footer = st.container()
 
 
@@ -180,57 +180,57 @@ with sidebar:
     st.sidebar.image("./images/logo.png")
 
 
-with download_model:
+# with download_model:
 
-    st.subheader("Download Model")
+#     st.subheader("Download Model")
 
-    with st.form("tea_cappuccino_coffee", clear_on_submit=True):
-        st.code("Submit the below form to download the ml model.")
-        nick_name=st.text_input('Nick Name', placeholder="Johnny")
-        poision=st.selectbox('What you like', ['Tea', 'Milk', 'Coffee', 'Choose a option'], help="What you like tea, milk or coffee", index=3)
+#     with st.form("tea_cappuccino_coffee", clear_on_submit=True):
+#         st.code("Submit the below form to download the ml model.")
+#         nick_name=st.text_input('Nick Name', placeholder="Johnny")
+#         poision=st.selectbox('What you like', ['Tea', 'Milk', 'Coffee', 'Choose a option'], help="What you like tea, milk or coffee", index=3)
 
-        submitted = st.form_submit_button("Submit")
+#         submitted = st.form_submit_button("Submit")
 
-        # collections
-        collections = tea_milk_coffee["users"]
-        current_dt = datetime.now()
-        time = current_dt.strftime("%H:%M:%S")
-        date = current_dt.strftime("%Y-%m-%d")
+#         # collections
+#         collections = tea_milk_coffee["users"]
+#         current_dt = datetime.now()
+#         time = current_dt.strftime("%H:%M:%S")
+#         date = current_dt.strftime("%Y-%m-%d")
 
-        if not nick_name.isspace() and poision!="Choose a option":
-            if submitted:
-                st.write(f"""
-                    <h6 align="center">Thank you!</h6>
-                <h6 align="center">Download by clicking below button.</h6>
-                """, unsafe_allow_html=True)
-            user_info = { "name": f"{nick_name}" , "drink": f"{poision}", "date": f"{date}", "time": f"{time}"}
-            x = collections.insert_one(user_info)
+#         if not nick_name.isspace() and poision!="Choose a option":
+#             if submitted:
+#                 st.write(f"""
+#                     <h6 align="center">Thank you!</h6>
+#                 <h6 align="center">Download by clicking below button.</h6>
+#                 """, unsafe_allow_html=True)
+#             user_info = { "name": f"{nick_name}" , "drink": f"{poision}", "date": f"{date}", "time": f"{time}"}
+#             x = collections.insert_one(user_info)
 
-    if not nick_name.isspace() and poision!="Choose a option":
-        if submitted:
-            with open("./model/ymc.h5", "rb") as file:
-                btn = st.download_button(
-                    label="Download Model",
-                    data=file,
-                    file_name="yx10.h5"
-                    )
+#     if not nick_name.isspace() and poision!="Choose a option":
+#         if submitted:
+#             with open("./model/ymc.h5", "rb") as file:
+#                 btn = st.download_button(
+#                     label="Download Model",
+#                     data=file,
+#                     file_name="yx10.h5"
+#                     )
 
 
 
-    load_col, down_col  = st.columns(2)
+#     load_col, down_col  = st.columns(2)
 
-    down_col.write(
-        """
-        ---
+#     down_col.write(
+#         """
+#         ---
 
-        Check out the Source Code:
+#         Check out the Source Code:
 
-        ###### <span  style="color:pink; border: 2px; border-color: #261799; border-style: dashed;padding:3px;border-radius:4px;"><a href="https://adam-al-rahman.github.io/LabGarden/neural-network/regression/machine_learning/tensorflow/ml_model/2022/01/02/straight-line.html" target="_blank" style=" text-decoration: none; color:pink">Source Code</a></span>
+#         ###### <span  style="color:pink; border: 2px; border-color: #261799; border-style: dashed;padding:3px;border-radius:4px;"><a href="https://adam-al-rahman.github.io/LabGarden/neural-network/regression/machine_learning/tensorflow/ml_model/2022/01/02/straight-line.html" target="_blank" style=" text-decoration: none; color:pink">Source Code</a></span>
 
-        By <a href="https://atiq-ur-rehaman.netlify.app/" target="_blank" style="text-decoration: none; color:#00aa00">Adam Al-Rahman</a>
+#         By <a href="https://atiq-ur-rehaman.netlify.app/" target="_blank" style="text-decoration: none; color:#00aa00">Adam Al-Rahman</a>
 
-        """, unsafe_allow_html=True
-    )
+#         """, unsafe_allow_html=True
+#     )
 
 
 with footer:
